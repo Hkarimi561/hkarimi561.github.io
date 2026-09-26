@@ -6,6 +6,8 @@ tags: ["zsh", "shell", "dotfiles"]
 slug: "how-to-make-zsh-beutiful"
 ---
 
+## Set up the Spaceship theme
+
 ### Download Spaceship theme
 
 ```shell

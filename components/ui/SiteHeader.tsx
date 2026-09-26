@@ -69,8 +69,8 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-bg transition-[border-color] duration-150 ${
-        scrolled ? "border-b border-border" : "border-b border-transparent"
+      className={`sticky top-0 z-50 bg-bg transition-[box-shadow] duration-150 ${
+        scrolled ? "shadow-[inset_0_-1px_0_0_var(--color-border)]" : "shadow-[inset_0_-1px_0_0_transparent]"
       }`}
     >
       <div className="mx-auto flex h-[var(--nav-height)] max-w-[1200px] items-center justify-between px-6 md:px-8">
@@ -91,7 +91,7 @@ export function SiteHeader() {
                     <Link
                       href={link.href}
                       aria-current={active ? "page" : undefined}
-                      className={`font-mono text-mono-label uppercase tracking-[0.06em] transition-colors lg:text-mono-label-lg ${
+                      className={`flex h-[var(--nav-height)] items-center font-mono text-mono-label uppercase tracking-[0.06em] transition-colors lg:text-mono-label-lg ${
                         active
                           ? "text-text-primary underline decoration-accent-strong decoration-1 underline-offset-[6px]"
                           : "text-text-secondary hover:text-text-primary"
@@ -115,7 +115,7 @@ export function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls={panelId}
             onClick={() => setMenuOpen((open) => !open)}
-            className="font-mono text-mono-label uppercase tracking-[0.06em] text-text-secondary transition-colors hover:text-text-primary"
+            className="-mr-3 flex min-h-11 items-center px-3 font-mono text-mono-label uppercase tracking-[0.06em] text-text-secondary transition-colors hover:text-text-primary"
           >
             {menuOpen ? "Close" : "Menu"}
           </button>

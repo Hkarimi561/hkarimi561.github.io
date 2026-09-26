@@ -92,12 +92,13 @@ export default function AboutPage() {
               <li key={link.name} className="border-t border-border py-4 first:border-t-0">
                 <a
                   href={link.href}
-                  className="flex flex-col gap-1 text-body text-text-primary transition-colors hover:text-accent-strong hover:underline hover:underline-offset-4 [overflow-wrap:anywhere] md:flex-row md:items-baseline md:justify-between"
+                  className="group flex flex-col gap-1 text-body text-text-primary transition-colors hover:text-accent-strong md:flex-row md:items-baseline md:justify-between"
                 >
                   <span className="font-mono text-mono-label uppercase tracking-[0.06em] text-text-secondary">
                     {link.name}
+                    <span className="sr-only">: </span>
                   </span>
-                  <span>
+                  <span className="[overflow-wrap:anywhere] group-hover:underline group-hover:underline-offset-4">
                     {link.handle} <span aria-hidden="true">↗</span>
                   </span>
                 </a>

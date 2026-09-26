@@ -71,7 +71,7 @@ export default async function ProjectsPage() {
                       className="flex items-center gap-1 pt-2 font-mono text-mono-label uppercase tracking-[0.06em] text-accent-strong"
                     >
                       VIEW PROJECT
-                      <span className="inline-block transition-transform duration-150 ease-out group-hover:translate-x-1">
+                      <span className="inline-block transition-transform duration-150 ease-out motion-safe:group-hover:translate-x-1">
                         →
                       </span>
                     </p>

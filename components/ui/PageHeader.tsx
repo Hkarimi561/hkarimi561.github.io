@@ -11,8 +11,8 @@ interface PageHeaderProps {
  */
 export function PageHeader({ eyebrow, title, intro }: PageHeaderProps) {
   return (
-    <div className="mx-auto max-w-[1200px] border-b border-border px-6 pb-12 pt-16 md:px-8 lg:pb-16 lg:pt-24">
-      <div className="flex flex-col gap-4">
+    <div className="mx-auto max-w-[1200px] px-6 pt-16 md:px-8 lg:pt-24">
+      <div className="flex flex-col gap-4 border-b border-border pb-12 lg:pb-16">
         <p className="font-mono text-mono-label uppercase tracking-[0.06em] text-accent-strong lg:text-mono-label-lg">
           {eyebrow}
         </p>

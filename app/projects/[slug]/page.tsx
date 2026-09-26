@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CodeBlockScript } from "@/components/ui/CodeBlockScript";
 import { getAllProjects, getProjectBySlug } from "@/lib/projects";
 
 export async function generateStaticParams() {
@@ -77,9 +78,10 @@ export default async function ProjectDetailPage({
               {secondaryHref && (
                 <a
                   href={secondaryHref}
+                  aria-label="Source code on GitHub"
                   className="inline-flex items-center gap-1 rounded-lg border border-border px-5 py-2.5 text-body font-medium text-text-primary transition-colors hover:bg-surface-raised"
                 >
-                  Source code on GitHub <span aria-hidden="true">↗</span>
+                  Source <span aria-hidden="true">↗</span>
                 </a>
               )}
             </div>
@@ -125,6 +127,7 @@ export default async function ProjectDetailPage({
           </Link>
         </div>
       </div>
+      <CodeBlockScript />
     </main>
   );
 }
