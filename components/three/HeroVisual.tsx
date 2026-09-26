@@ -5,10 +5,20 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useHeroMotionMode } from "@/lib/use-hero-motion-mode";
+import { useTheme } from "@/lib/use-theme";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
 
-const DARK_ACCENT = "#5EEAD4";
+// The 3D scene and its static fallback both need theme-aware colors —
+// the dark-mode accent teal (#5EEAD4) is too light/washed-out against the
+// light theme's near-white background, so light mode uses the darkened
+// accent (matches --color-accent in globals.css) for contrast instead.
+const ACCENT_BY_THEME = { dark: "#5EEAD4", light: "#0F9C8B" } as const;
+const BG_BY_THEME = { dark: "#0A0B0D", light: "#FAFAF9" } as const;
+const FALLBACK_SRC_BY_THEME = {
+  dark: "/hero-fallback.svg",
+  light: "/hero-fallback-light.svg",
+} as const;
 
 /**
  * Renders either the real @react-three/fiber scene or its static fallback,
@@ -20,6 +30,10 @@ const DARK_ACCENT = "#5EEAD4";
 export function HeroVisual() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mode = useHeroMotionMode();
+  const theme = useTheme();
+  const accentColor = ACCENT_BY_THEME[theme];
+  const bgColor = BG_BY_THEME[theme];
+  const fallbackSrc = FALLBACK_SRC_BY_THEME[theme];
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   // Manual scroll-progress tracking (rather than framer's `useScroll`
@@ -87,7 +101,7 @@ export function HeroVisual() {
     >
       {showCanvas && (
         <div className="absolute inset-0" tabIndex={-1} aria-hidden="true">
-          <HeroCanvas containerRef={containerRef} accentColor={DARK_ACCENT} />
+          <HeroCanvas containerRef={containerRef} accentColor={accentColor} bgColor={bgColor} />
         </div>
       )}
 
@@ -99,7 +113,7 @@ export function HeroVisual() {
           onPointerLeave={handlePointerLeave}
         >
           <Image
-            src="/hero-fallback.svg"
+            src={fallbackSrc}
             alt=""
             aria-hidden="true"
             width={1200}

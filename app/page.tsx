@@ -5,8 +5,8 @@ import { WhatIDo } from "@/components/ui/WhatIDo";
 
 export default function Home() {
   return (
-    <main>
-      <section className="relative flex min-h-screen flex-col lg:flex-row">
+    <main id="main" tabIndex={-1}>
+      <section className="relative flex min-h-[calc(100svh-var(--nav-height))] flex-col lg:flex-row">
         {/* Text zone — respects the container measure even at lg+, where the
             visual zone (below) is intentionally full-bleed to the viewport
             edge. See design/home.md, Layout > Desktop. */}

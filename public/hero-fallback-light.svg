@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-hidden="true">
+  <defs>
+    <radialGradient id="bg" cx="42%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#F1F1EF" />
+      <stop offset="100%" stop-color="#FAFAF9" />
+    </radialGradient>
+    <linearGradient id="facetA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F9C8B" />
+      <stop offset="100%" stop-color="#0B7C6F" />
+    </linearGradient>
+    <linearGradient id="facetB" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#CDEDE7" />
+      <stop offset="100%" stop-color="#B4E0D8" />
+    </linearGradient>
+    <linearGradient id="facetC" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2DBAA6" />
+      <stop offset="100%" stop-color="#E3F7F4" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="1200" fill="url(#bg)" />
+
+  <!-- Light-theme variant of the faceted "icosahedron" placeholder — see
+       design/home.md section 5. Darker teal facets keep the shape legible
+       against a near-white background, matching the light-theme 3D
+       scene's accent color. -->
+  <g transform="translate(600 600)">
+    <polygon points="0,-320 220,-140 140,220 -140,220 -220,-140" fill="url(#facetA)" opacity="0.92" />
+    <polygon points="0,-320 220,-140 40,-20" fill="url(#facetC)" opacity="0.85" />
+    <polygon points="220,-140 140,220 40,-20" fill="url(#facetB)" opacity="0.85" />
+    <polygon points="-140,220 -220,-140 40,-20" fill="url(#facetB)" opacity="0.75" />
+    <polygon points="0,-320 -220,-140 40,-20" fill="url(#facetC)" opacity="0.8" />
+    <polygon points="140,220 -140,220 40,-20" fill="url(#facetA)" opacity="0.65" />
+  </g>
+</svg>
