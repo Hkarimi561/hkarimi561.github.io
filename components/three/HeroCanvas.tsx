@@ -8,13 +8,17 @@ import IcosahedronMesh from "./IcosahedronMesh";
 interface HeroCanvasProps {
   containerRef: React.RefObject<HTMLElement | null>;
   accentColor: string;
+  /** Page background color for the current theme — used as the
+   * hemisphere light's "ground" color so the mesh's shadowed side reads
+   * as sitting in the same void as the page in both themes. */
+  bgColor: string;
 }
 
 /**
  * The real WebGL scene. Only ever mounted client-side (via next/dynamic,
  * ssr: false) and only in the "full" motion mode — see lib/use-hero-motion-mode.ts.
  */
-export default function HeroCanvas({ containerRef, accentColor }: HeroCanvasProps) {
+export default function HeroCanvas({ containerRef, accentColor, bgColor }: HeroCanvasProps) {
   const scrollProgress = useRef(0);
   const isCoarsePointer = useMediaQuery("(pointer: coarse)");
   // This component only ever mounts client-side (parent loads it via
@@ -65,7 +69,7 @@ export default function HeroCanvas({ containerRef, accentColor }: HeroCanvasProp
       style={{ background: "transparent" }}
     >
       <ambientLight intensity={0.35} />
-      <hemisphereLight args={["#8ea0ad", "#0a0b0d", 0.45]} />
+      <hemisphereLight args={["#8ea0ad", bgColor, 0.45]} />
       {/* Key light: soft, warm-neutral, upper-left */}
       <directionalLight position={[-4, 4, 3]} intensity={1.1} color="#fff3e0" />
       {/* Dim accent-teal rim/fill light from behind the object */}

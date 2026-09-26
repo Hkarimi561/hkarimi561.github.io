@@ -22,6 +22,9 @@
   --color-focus-ring: #5eead4; /* same as accent, used at full opacity */
 
   --color-on-accent: #0a0b0d; /* text on accent-filled surfaces (dark-on-teal) */
+
+  /* Layout token — see design/nav.md */
+  --nav-height: 4rem;
 }
 
 :root[data-theme="light"] {
@@ -155,6 +158,17 @@ body {
   outline-offset: 2px;
 }
 
+@keyframes disclosure-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -168,5 +182,235 @@ body {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* Any in-page anchor target needs room for the sticky header — see
+   design/nav.md section 2, "Knock-on layout fixes". Covers heading ids
+   added by rehype-slug in article/project prose plus the #what-i-do
+   scroll-affordance target. */
+[id] {
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+/* ---- Prose system (design/articles.md §B.2), shared by article and
+   project detail bodies. ---- */
+.prose-article {
+  color: var(--color-text-primary);
+}
+
+.prose-article > :first-child {
+  margin-top: 0;
+}
+
+.prose-article p {
+  font-size: var(--text-body);
+  line-height: 1.7;
+  margin-block: 1.25em;
+}
+
+@media (width >= 64rem) {
+  .prose-article p {
+    font-size: var(--text-body-lg);
+  }
+}
+
+.prose-article h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
+}
+
+.prose-article h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.prose-article h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+@media (width >= 64rem) {
+  .prose-article h2 {
+    font-size: var(--text-h2-lg);
+  }
+  .prose-article h3 {
+    font-size: var(--text-h3-lg);
+  }
+}
+
+.prose-article a {
+  color: var(--color-accent-strong);
+  text-underline-offset: 3px;
+  text-decoration-line: underline;
+  transition: color 150ms;
+}
+
+.prose-article a:hover {
+  color: var(--color-text-primary);
+}
+
+.prose-article ul,
+.prose-article ol {
+  padding-left: 1.5rem;
+  margin-block: 1.25em;
+}
+
+.prose-article li {
+  margin-block: 0.5em;
+}
+
+.prose-article ul > li::marker,
+.prose-article ol > li::marker {
+  color: var(--color-text-secondary);
+}
+
+.prose-article ol > li::marker {
+  font-family: var(--font-mono);
+}
+
+.prose-article blockquote {
+  border-left: 2px solid var(--color-accent-strong);
+  padding-left: 1.25rem;
+  color: var(--color-text-secondary);
+  font-style: normal;
+  margin-block: 1.25em;
+}
+
+.prose-article :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.125rem 0.375rem;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.prose-article hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin-block: 3em;
+}
+
+.prose-article img {
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.prose-article figcaption {
+  font-size: var(--text-small);
+  color: var(--color-text-secondary);
+  margin-top: 0.5rem;
+}
+
+.prose-article .table-wrapper {
+  overflow-x: auto;
+  margin-block: 1.75em;
+}
+
+.prose-article table {
+  width: 100%;
+  font-size: var(--text-small);
+  border-collapse: collapse;
+}
+
+.prose-article th {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: var(--text-mono-label);
+  color: var(--color-text-secondary);
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prose-article td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Code blocks — design/articles.md §B.2 "Code blocks" */
+.code-block {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-block: 1.75em;
+  overflow: hidden;
+}
+
+.code-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding-inline: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.code-block__lang {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+}
+
+.code-block__copy {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  transition: color 150ms;
+  margin-left: auto;
+}
+
+.code-block__copy:hover {
+  color: var(--color-text-primary);
+}
+
+.code-block pre.shiki {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  tab-size: 2;
+  background-color: var(--color-surface) !important;
+}
+
+.code-block pre.shiki,
+.code-block pre.shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+:root[data-theme="light"] .code-block pre.shiki,
+:root[data-theme="light"] .code-block pre.shiki span {
+  color: var(--shiki-light) !important;
+}
+
+@media (width < 48rem) {
+  .code-block {
+    margin-inline: -1.5rem;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
   }
 }
