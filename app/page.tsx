@@ -28,7 +28,7 @@ export default function Home() {
           <div className="flex flex-col items-start gap-4 pt-2 sm:flex-row sm:items-center">
             <Link
               href="/projects"
-              className="inline-flex w-full items-center justify-center rounded-lg bg-accent px-6 py-3 text-body font-medium text-bg transition-colors hover:bg-accent-strong sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-lg bg-accent px-6 py-3 text-body font-medium text-on-accent transition-colors hover:bg-accent-strong sm:w-auto"
             >
               View projects
             </Link>

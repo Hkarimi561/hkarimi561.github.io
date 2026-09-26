@@ -20,6 +20,8 @@
   --color-danger: #f87171;
 
   --color-focus-ring: #5eead4; /* same as accent, used at full opacity */
+
+  --color-on-accent: #0a0b0d; /* text on accent-filled surfaces (dark-on-teal) */
 }
 
 :root[data-theme="light"] {
@@ -41,6 +43,10 @@
   --color-danger: #dc2626;
 
   --color-focus-ring: #0f9c8b;
+
+  /* Light-theme accent (#0F9C8B) is too light for near-white text (~3.4:1);
+     use the dark text color instead (~5.3:1, passes AA). */
+  --color-on-accent: #14161a;
 }
 
 @theme {
@@ -58,6 +64,7 @@
   --color-warning: var(--color-warning);
   --color-danger: var(--color-danger);
   --color-focus-ring: var(--color-focus-ring);
+  --color-on-accent: var(--color-on-accent);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
