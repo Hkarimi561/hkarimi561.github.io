@@ -38,22 +38,23 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export function WhatIDo() {
   const reducedMotion = usePrefersReducedMotion();
 
-  const hidden = reducedMotion ? undefined : { opacity: 0, y: 16 };
+  const hidden = { opacity: 0, y: 16 };
   const visible = { opacity: 1, y: 0 };
 
   return (
-    <section
-      id="what-i-do"
-      aria-labelledby="what-i-do-heading"
-      className="border-t border-border"
-    >
-      <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-8 lg:grid lg:grid-cols-12 lg:gap-12 lg:py-32">
+    <section id="what-i-do" aria-labelledby="what-i-do-heading">
+      <div className="mx-auto max-w-[1200px] border-t border-border px-6 py-16 md:px-8 lg:grid lg:grid-cols-12 lg:gap-12 lg:py-32">
         <motion.div
+          data-reveal
           className="flex flex-col gap-4 lg:col-span-4"
           initial={hidden}
-          whileInView={reducedMotion ? undefined : visible}
+          whileInView={visible}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.5, ease: EASE }}
+          transition={
+            reducedMotion
+              ? { duration: 0, delay: 0 }
+              : { duration: 0.5, ease: EASE }
+          }
         >
           <p className="font-mono text-mono-label uppercase tracking-[0.06em] text-accent-strong">
             What I do
@@ -66,15 +67,20 @@ export function WhatIDo() {
           </h2>
         </motion.div>
 
-        <ol className="mt-12 flex flex-col lg:col-span-8 lg:mt-0">
+        <ol role="list" className="mt-12 flex flex-col lg:col-span-8 lg:mt-0">
           {CAPABILITIES.map((capability, i) => (
             <motion.li
               key={capability.index}
+              data-reveal
               className="flex flex-col gap-2 border-t border-border py-6 first:border-t-0 md:flex-row md:gap-6 lg:py-8"
               initial={hidden}
-              whileInView={reducedMotion ? undefined : visible}
+              whileInView={visible}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.5, ease: EASE, delay: reducedMotion ? 0 : (i + 1) * 0.08 }}
+              transition={
+                reducedMotion
+                  ? { duration: 0, delay: 0 }
+                  : { duration: 0.5, ease: EASE, delay: (i + 1) * 0.08 }
+              }
             >
               <span
                 aria-hidden="true"
