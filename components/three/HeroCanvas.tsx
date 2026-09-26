@@ -27,9 +27,24 @@ export default function HeroCanvas({ containerRef, accentColor }: HeroCanvasProp
 
     const updateScrollProgress = () => {
       const rect = el.getBoundingClientRect();
+      // Absolute document-space position of the hero's top edge. `rect.top`
+      // shrinks by exactly as much as `window.scrollY` grows while
+      // scrolling, so this sum stays constant regardless of scroll
+      // position.
+      const heroDocTop = rect.top + window.scrollY;
+      const maxScrollableDistance = Math.max(
+        document.documentElement.scrollHeight - window.innerHeight - heroDocTop,
+        0
+      );
+      // The recede must fully complete (progress reaches 1) by the time the
+      // user has scrolled as far as the page allows, which — now that a
+      // second section sits below the hero — can be shorter than the
+      // hero's own height. Map progress over whichever distance is
+      // shorter.
+      const distance = Math.min(rect.height, maxScrollableDistance || rect.height);
       // 0 while the hero's top is at/below the viewport top; 1 once the
-      // hero has scrolled a full hero-height past the top of the viewport.
-      const progress = rect.height > 0 ? -rect.top / rect.height : 0;
+      // hero has scrolled `distance` past the top of the viewport.
+      const progress = distance > 0 ? -rect.top / distance : 0;
       scrollProgress.current = Math.min(Math.max(progress, 0), 1);
     };
 
