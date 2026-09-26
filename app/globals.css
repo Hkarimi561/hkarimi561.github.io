@@ -401,7 +401,30 @@ body {
   font-size: 0.875rem;
   line-height: 1.6;
   tab-size: 2;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+  /* Scroll-shadow affordance (Lea Verou technique): "cover" layers
+     (attachment: local) scroll with the content and hide the "shadow"
+     layers (attachment: scroll, i.e. fixed to the box) whenever there is
+     no more content past that edge. Once scrolled, the cover slides
+     away and the 24px shadow — a fade from --color-surface to
+     transparent — becomes visible at the true edge of the box. Must
+     stay this `background` shorthand, not a flat `background-color`,
+     or the layers get clobbered. */
+  background-image:
+    linear-gradient(to right, var(--color-surface) 50%, transparent),
+    linear-gradient(to left, var(--color-surface) 50%, transparent),
+    linear-gradient(to right, var(--color-surface), transparent),
+    linear-gradient(to left, var(--color-surface), transparent);
   background-color: var(--color-surface) !important;
+  background-repeat: no-repeat !important;
+  background-size: 24px 100%, 24px 100%, 24px 100%, 24px 100% !important;
+  background-position: 0 0, 100% 0, 0 0, 100% 0 !important;
+  background-attachment: local, local, scroll, scroll !important;
+}
+
+.code-block pre.shiki:focus-visible {
+  outline-offset: -2px;
 }
 
 .code-block pre.shiki,

@@ -7,6 +7,14 @@ import { getAllProjects, getProjectBySlug } from "@/lib/projects";
 
 export async function generateStaticParams() {
   const projects = await getAllProjects();
+  if (projects.length === 0) {
+    // `output: "export"` requires at least one static route per dynamic
+    // segment. With zero real projects there is nothing to build a page
+    // for, so generate a single unreachable placeholder slug — the page
+    // component below calls `notFound()` for any slug that doesn't match
+    // a real project, so this ships no placeholder content.
+    return [{ slug: "_no-projects-yet" }];
+  }
   return projects.map((project) => ({ slug: project.slug }));
 }
 
