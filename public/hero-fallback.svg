@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-hidden="true">
+  <defs>
+    <radialGradient id="bg" cx="42%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#1b1e24" />
+      <stop offset="100%" stop-color="#0a0b0d" />
+    </radialGradient>
+    <linearGradient id="facetA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7ff3e0" />
+      <stop offset="100%" stop-color="#2dd4bf" />
+    </linearGradient>
+    <linearGradient id="facetB" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#134e48" />
+      <stop offset="100%" stop-color="#1b3a37" />
+    </linearGradient>
+    <linearGradient id="facetC" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5eead4" />
+      <stop offset="100%" stop-color="#12332e" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="1200" fill="url(#bg)" />
+
+  <!-- Placeholder faceted "icosahedron" silhouette, standing in for a
+       pre-rendered still of the real 3D scene (see design/home.md section 5). -->
+  <g transform="translate(600 600)">
+    <polygon points="0,-320 220,-140 140,220 -140,220 -220,-140" fill="url(#facetA)" opacity="0.92" />
+    <polygon points="0,-320 220,-140 40,-20" fill="url(#facetC)" opacity="0.85" />
+    <polygon points="220,-140 140,220 40,-20" fill="url(#facetB)" opacity="0.8" />
+    <polygon points="-140,220 -220,-140 40,-20" fill="url(#facetB)" opacity="0.7" />
+    <polygon points="0,-320 -220,-140 40,-20" fill="url(#facetC)" opacity="0.75" />
+    <polygon points="140,220 -140,220 40,-20" fill="url(#facetA)" opacity="0.6" />
+  </g>
+</svg>
