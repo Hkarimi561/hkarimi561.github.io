@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HeroVisual } from "@/components/three/HeroVisual";
 import { ScrollAffordance } from "@/components/ui/ScrollAffordance";
+import { WhatIDo } from "@/components/ui/WhatIDo";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
         <div
           className="flex w-full flex-col justify-center gap-6 px-6 py-24 md:px-8 md:py-28 lg:w-[45%] lg:shrink-0 lg:py-32 lg:pr-12 lg:[padding-left:max(2rem,calc((100vw-1200px)/2+2rem))]"
         >
-          <p className="font-mono text-mono-label uppercase tracking-[0.06em] text-accent lg:text-mono-label-lg">
+          <p className="font-mono text-mono-label uppercase tracking-[0.06em] text-accent-strong lg:text-mono-label-lg">
             Software Engineer
           </p>
 
@@ -51,6 +52,8 @@ export default function Home() {
 
         <ScrollAffordance />
       </section>
+
+      <WhatIDo />
     </main>
   );
 }

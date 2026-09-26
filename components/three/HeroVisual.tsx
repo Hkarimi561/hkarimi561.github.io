@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useHeroMotionMode } from "@/lib/use-hero-motion-mode";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
@@ -22,10 +22,39 @@ export function HeroVisual() {
   const mode = useHeroMotionMode();
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
+  // Manual scroll-progress tracking (rather than framer's `useScroll`
+  // target/offset, which maps 0→1 over the container's own height): the
+  // recede must reach 1 by the time the user has scrolled as far as the
+  // page allows, which can be shorter than the container's height once
+  // more sections sit below the hero. See HeroCanvas.tsx for the same fix
+  // applied to the WebGL path.
+  const scrollYProgress = useMotionValue(0);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const updateScrollProgress = () => {
+      const rect = el.getBoundingClientRect();
+      const heroDocTop = rect.top + window.scrollY;
+      const maxScrollableDistance = Math.max(
+        document.documentElement.scrollHeight - window.innerHeight - heroDocTop,
+        0
+      );
+      const distance = Math.min(rect.height, maxScrollableDistance || rect.height);
+      const progress = distance > 0 ? -rect.top / distance : 0;
+      scrollYProgress.set(Math.min(Math.max(progress, 0), 1));
+    };
+
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
+    return () => {
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+    };
+  }, [scrollYProgress]);
+
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
 
